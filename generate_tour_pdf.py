@@ -115,23 +115,28 @@ def _labeled_placeholder(label: str, color, w=400, h=250) -> io.BytesIO:
     # Simple skyline: a sequence of towers + a central dome
     step = w // 8
     tower_w = max(step - 4, 6)
-    towers = [
-        (step * 1, h * 0.40, tower_w,     h - horizon),
-        (step * 2, h * 0.32, tower_w + 4, h - horizon),
-        (step * 3, h * 0.45, tower_w,     h - horizon),
-        (step * 5, h * 0.35, tower_w + 6, h - horizon),
-        (step * 6, h * 0.42, tower_w,     h - horizon),
-        (step * 7, h * 0.28, tower_w + 2, h - horizon),
+    # Each entry: (x_offset_steps, top_y_fraction, width_bonus, height)
+    TOWER_SPECS = [
+        (1, 0.40, 0),
+        (2, 0.32, 4),
+        (3, 0.45, 0),
+        (5, 0.35, 6),
+        (6, 0.42, 0),
+        (7, 0.28, 2),
     ]
-    for tx, ty, tw2, th2 in towers:
+    towers = [
+        (step * x, h * yf, tower_w + wb, h - horizon)
+        for x, yf, wb in TOWER_SPECS
+    ]
+    for tx, ty, tower_width, th2 in towers:
         draw.rectangle(
-            [(int(tx), int(ty)), (int(tx + tw2), horizon)],
+            [(int(tx), int(ty)), (int(tx + tower_width), horizon)],
             fill=sil,
         )
         # Small battlement on top
-        for bx in range(int(tx), int(tx + tw2), max(3, tw2 // 4)):
+        for bx in range(int(tx), int(tx + tower_width), max(3, tower_width // 4)):
             draw.rectangle(
-                [(bx, int(ty) - 5), (bx + max(2, tw2 // 5), int(ty))],
+                [(bx, int(ty) - 5), (bx + max(2, tower_width // 5), int(ty))],
                 fill=sil,
             )
 
@@ -200,18 +205,20 @@ def _labeled_placeholder(label: str, color, w=400, h=250) -> io.BytesIO:
 
     if font_lg:
         bbox = draw.textbbox((0, 0), text, font=font_lg)
-        tw2, th2 = bbox[2] - bbox[0], bbox[3] - bbox[1]
+        text_w, text_h = bbox[2] - bbox[0], bbox[3] - bbox[1]
     else:
-        tw2, th2 = len(text) * 8, 12
+        text_w, text_h = len(text) * 8, 12
 
     # Truncate label if too wide
-    while font_lg and tw2 > w - border * 4 and len(text) > 10:
-        text = text[: len(text) - 4] + "…"
+    TRUNCATE_STEP = 4
+    MIN_TEXT_LENGTH = 10
+    while font_lg and text_w > w - border * 4 and len(text) > MIN_TEXT_LENGTH:
+        text = text[: len(text) - TRUNCATE_STEP] + "…"
         bbox = draw.textbbox((0, 0), text, font=font_lg)
-        tw2, th2 = bbox[2] - bbox[0], bbox[3] - bbox[1]
+        text_w, text_h = bbox[2] - bbox[0], bbox[3] - bbox[1]
 
-    tx2 = (w - tw2) // 2
-    ty2 = banner_y + (banner_h - th2) // 2
+    tx2 = (w - text_w) // 2
+    ty2 = banner_y + (banner_h - text_h) // 2
     draw.text((tx2, ty2), text, fill=text_col, font=font_lg)
 
     buf = io.BytesIO()
