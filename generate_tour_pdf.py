@@ -571,9 +571,9 @@ def build_toc(styles):
     entries = [
         ("📌", "Mappa Generale", ""),
         ("📍", "29 Aprile  –  Arrivo a Siviglia", "Sera"),
-        ("🕌", "30 Aprile  –  Siviglia Iconica", "Mattina · Pomeriggio · Sera"),
-        ("🕌", "1 Maggio  –  Siviglia Autentica", "Mattina · Pomeriggio · Sera"),
-        ("🕌", "2 Maggio  –  Day Trip a Córdoba", "Mattina · Pomeriggio · Sera"),
+        ("🕌", "30 Aprile  –  Siviglia Iconica", "Santa Cruz · Alcázar · Cattedrale · Flamenco"),
+        ("🕌", "1 Maggio  –  Siviglia Autentica", "Triana · Plaza de España · Metropol Parasol"),
+        ("🕌", "2 Maggio  –  Day Trip a Córdoba", "Mezquita · Judería · Ponte Romano"),
         ("✈️", "3 Maggio  –  Partenza", "Mattina"),
         ("💡", "Consigli Pratici", "Biglietti · Trasporti · Ristoranti"),
         ("🗺", "Mappe e QR Code", "Links Utili"),
@@ -905,21 +905,60 @@ def build_day1(styles):
     story += day_header(
         "30 Aprile",
         "Siviglia Iconica",
-        "La grande architettura andalusa: Alcázar, Cattedrale, Santa Cruz.",
+        "Mattinata nel cuore del Barrio Santa Cruz, pomeriggio tra Alcázar e Cattedrale.",
         img,
         styles,
         fallback=TERRACOTTA,
     )
 
+    story += tip_box(
+        "Oggi i due monumenti principali — <b>Alcázar</b> e <b>Cattedrale</b> — "
+        "si visitano dalle <b>12:00 in poi</b>. La mattinata è libera per "
+        "esplorare il quartiere più bello di Siviglia senza fretta.",
+        styles,
+        title="📋 Ritmo della Giornata",
+    )
+
     story += section(
-        "🌅 Mattina  (9:30 →)",
+        "🌅 Mattina  (9:00 – 12:00)  —  Santa Cruz senza folla",
         [
-            "<b>9:30</b> – Ingresso al <b>Real Alcázar di Siviglia</b> (prenotato in anticipo!)",
-            "Visita i Saloni Reali, il Giardino del Labirinto e il Patio delle Bambole",
-            "Tempo consigliato: <b>1h30 – 2h</b>",
-            "<b>11:15</b> – <b>Cattedrale di Siviglia</b> (la più grande gotica del mondo) + Torre della <b>Giralda</b>",
-            "La Cattedrale apre alle 11:00 (Lun-Sab). Salita alla Giralda: rampa (non scale) — panorama imperdibile",
-            "Tempo consigliato: <b>1h15</b>",
+            "<b>9:00</b> – Colazione in un bar del centro: <i>tostada con aceite y tomate</i> + café con leche",
+            "Suggerimento: <b>Horno San Buenaventura</b> (Av. de la Constitución) o qualsiasi bar locale",
+            "<b>9:45</b> – Passeggiata nel <b>Barrio Santa Cruz</b>: vicoli bianchi, gerani, fontane nascoste",
+            "Da non perdere: <b>Plaza de Santa Cruz</b>, <b>Callejón del Agua</b>, <b>Plaza de Doña Elvira</b>",
+            "<b>10:30</b> – <b>Patio de Banderas</b> — la vista perfetta sull'Alcázar e la Giralda insieme",
+            "<b>11:00</b> – Esterni della <b>Cattedrale</b> e <b>Plaza del Cabildo</b> (piazzetta semicircolare nascosta)",
+            "<b>11:30</b> – Caffè o zumo de naranja in <b>Plaza del Triunfo</b> aspettando l'apertura",
+        ],
+        styles,
+    )
+    story.append(Spacer(1, 0.3 * cm))
+
+    story += curiosity_box(
+        "Il <b>Barrio Santa Cruz</b> era l'antico quartiere ebraico di Siviglia, "
+        "abitato fino all'espulsione del 1492. I vicoli stretti furono progettati "
+        "per creare ombra naturale nelle estati torridi. "
+        "Le case, tutte bianche con gerani rossi ai balconi, nascondono "
+        "patios interni meravigliosi — il vero salotto della vita sivigliana.<br/><br/>"
+        "La <b>Giralda</b> fu originariamente il minareto della Grande Moschea Almohade, "
+        "costruito nel 1184. La rampa interna (non scala) fu progettata perché i muezzin "
+        "potessero salire a cavallo per lanciare la chiamata alla preghiera.",
+        styles,
+        title="🏘️ Curiosità: Il Barrio Santa Cruz",
+    )
+
+    story += section(
+        "☀️ Pomeriggio  (12:00 →)  —  I Monumenti",
+        [
+            "<b>12:00</b> – Ingresso al <b>Real Alcázar di Siviglia</b> (biglietto prenotato online)",
+            "Visita i Saloni Reali, il Patio de las Doncellas e i Giardini",
+            "Tempo consigliato: <b>2h</b> (incluse le code al controllo di accesso)",
+            "<b>14:15</b> – Pranzo leggero nel Barrio Santa Cruz (2 minuti a piedi dall'uscita Alcázar)",
+            "Suggerimento: tapas veloci in <b>Bodega Santa Cruz 'Las Columnas'</b> (Calle Rodrigo Caro)",
+            "<b>15:30</b> – <b>Cattedrale di Siviglia</b> + salita alla <b>Giralda</b>",
+            "La più grande cattedrale gotica del mondo. Tomba di Cristoforo Colombo al suo interno",
+            "Tempo consigliato: <b>1h30</b> (inclusa la rampa della Giralda – panorama imperdibile)",
+            "Biglietto: <b>13€</b> online · Include Iglesia del Salvador (visitabile a parte un altro giorno)",
         ],
         styles,
     )
@@ -940,11 +979,11 @@ def build_day1(styles):
     story += tip_box(
         "Prenotare l'Alcázar <b>almeno 2 settimane prima</b> su "
         '<a href="https://alcazarsevilla.org/prepara-la-visita/" color="blue">alcazarsevilla.org</a>. '
-        "L'Alcázar apre alle <b>9:30</b> in orario estivo (aprile-settembre). "
-        "L'ingresso mattutino appena apre è il meno affollato (biglietto: <b>15,50€</b>). "
+        "Biglietto: <b>15,50€</b>. "
+        "L'ingresso delle 12:00 evita la calca delle prime ore. "
         "Portare scarpe comode: i pavimenti di maioliche sono sdrucciolevoli.",
         styles,
-        title="⚠️  Prenotazione Obbligatoria",
+        title="⚠️  Prenotazione Obbligatoria – Alcázar",
     )
 
     story += curiosity_box(
@@ -958,46 +997,26 @@ def build_day1(styles):
     )
 
     story += section(
-        "☀️ Pomeriggio  (13:00 →)",
+        "🌆 Sera  (19:00 →)  —  Flamenco e cena",
         [
-            "<b>13:00</b> – Pranzo nel <b>Barrio Santa Cruz</b> (evitare i ristoranti sulla piazza, cercare i vicoli)",
-            "<b>15:00</b> – Passeggiata libera nel quartiere ebraico: vicoli bianchi, gerani, fontane",
-            "<b>16:00</b> – <b>Casa de Pilatos</b> — palazzo rinascimentale-mudéjar molto sottovalutato",
-            "Ingresso: <b>12€</b> (piano principale) + 6€ piano alto opzionale · Chiude alle 18:00 · Tempo: 1h30",
-        ],
-        styles,
-    )
-    story.append(Spacer(1, 0.2 * cm))
-
-    story += curiosity_box(
-        "La <b>Cattedrale di Siviglia</b> è la terza chiesa più grande del mondo per superficie. "
-        "Al suo interno riposa <b>Cristoforo Colombo</b>: la sua tomba è retta da quattro figure "
-        "che rappresentano i re dei regni spagnoli medievali.<br/><br/>"
-        "La <b>Giralda</b> fu originariamente il minareto della Grande Moschea Almohade, "
-        "costruito nel 1184. La rampa interna (non scala) fu progettata perché i muezzin "
-        "potessero salire a cavallo per lanciare la chiamata alla preghiera.",
-        styles,
-        title="⛪ Curiosità: Cattedrale e Giralda",
-    )
-
-    story += section(
-        "🌆 Sera  (20:00 →)",
-        [
-            "<b>20:00</b> – Aperitivo in Plaza de la Alfalfa (locale, autentico)",
-            "<b>21:00</b> – Cena in un ristorante con prodotti locali (chiedere pesce fresco)",
-            "<b>22:30</b> – Opzionale: spettacolo di <b>flamenco</b> in una tablao di qualità",
-            "  → Tablao El Arenal o Casa de la Memoria (prenotare)",
+            "<b>19:30</b> – <b>Spettacolo di flamenco alla Casa de la Memoria</b>",
+            "Indirizzo: <b>Calle Cuna 6</b> (centro storico, 10 min a piedi dalla Cattedrale)",
+            "Max 100 posti, palazzo storico, artisti professionisti — il flamenco vero",
+            "Prenotare online su casadelamemoria.es · Durata: ~1h · Prezzo: ~22€",
+            "<b>21:00</b> – Cena da <b>La Azotea</b> (Calle Jesús del Gran Poder 31)",
+            "Cucina andalusa contemporanea, prodotti locali. <b>Prenotare</b> su thefork.es o per telefono",
+            "Da provare: <i>presa ibérica</i>, <i>atún rojo</i>, <i>salmorejo con jamón</i>",
         ],
         styles,
     )
     story.append(Spacer(1, 0.3 * cm))
 
     story += tip_box(
-        "Per il flamenco: evitare gli spettacoli 'per turisti' nelle piazze. "
-        "Casa de la Memoria (<b>Calle Cuna 6</b>) offre uno spettacolo autentico "
-        "in un palazzo storico, max 100 posti. Prenotare online.",
+        "La <b>Casa de la Memoria</b> è un centro culturale, non un tablao turistico. "
+        "Lo spettacolo cambia ogni sera con artisti diversi. "
+        "Arrivare 15 minuti prima per scegliere il posto (non numerati).",
         styles,
-        title="🎭 Flamenco Autentico",
+        title="🎭 Esperienza Obbligatoria: Flamenco Autentico",
     )
     return story
 
@@ -1013,7 +1032,7 @@ def build_day2(styles):
     story += day_header(
         "1 Maggio",
         "Siviglia Autentica",
-        "Giorno festivo! Il lato vero della città: Triana, il Parco, Plaza de España e il tramonto.",
+        "Triana, Plaza de España, tramonto dalle Setas. Giornata all'aria aperta.",
         img,
         styles,
         fallback=OLIVE,
@@ -1022,20 +1041,21 @@ def build_day2(styles):
 
     story += tip_box(
         "Oggi è il <b>1° Maggio</b> (Día del Trabajador), festivo in Spagna. "
-        "Molti monumenti municipali potrebbero essere chiusi, ma le attrazioni "
-        "all'aperto (Triana, Plaza de España, Parco, Setas) restano accessibili. "
-        "Giornata perfetta per vivere la città senza fretta.",
+        "Nessun problema: tutte le tappe di oggi sono all'aperto o in strutture private. "
+        "La città ha un'atmosfera rilassata e i sivigliani escono a passeggiare.",
         styles,
         title="⚠️  1° Maggio – Giorno Festivo",
     )
 
     story += section(
-        "🌅 Mattina  (9:00 →)",
+        "🌅 Mattina  (9:30 →)  —  Triana",
         [
-            "<b>9:00</b> – <b>Quartiere Triana</b> — attraversare il Ponte di Isabella II a piedi",
-            "Triana è la vera anima di Siviglia: ceramisti, baretti locali, flamenco nelle strade",
-            "<b>10:00</b> – <b>Mercato di Triana</b> (Mercado de Abastos) — prodotti locali, tapas fresche",
-            "<b>11:30</b> – Passeggiata lungo il Guadalquivir sulla riva di Triana",
+            "<b>9:30</b> – Attraversare il <b>Ponte di Isabella II</b> verso <b>Triana</b>",
+            "Il quartiere più autentico: ceramisti, baretti, flamenco spontaneo",
+            "<b>10:00</b> – <b>Mercato di Triana</b> (Mercado de Abastos) — colazione con prodotti locali",
+            "Da provare: <i>tortilla de camarones</i> (frittella di gamberetti)",
+            "<b>11:00</b> – Passeggiata sulla <b>Calle San Jacinto</b> e le botteghe di azulejos",
+            "<b>11:45</b> – Ritorno verso il centro lungo il <b>Guadalquivir</b>",
         ],
         styles,
     )
@@ -1056,23 +1076,21 @@ def build_day2(styles):
         "Il nome <b>Triana</b> potrebbe derivare dall'imperatore romano <b>Traiano</b>, "
         "nato nella regione nel 53 d.C. Il quartiere fu a lungo la dimora di "
         "gitani, toreri e marinai, ed è considerato la culla del <b>flamenco sivigliano</b>.<br/><br/>"
-        "Triana è famosa per le sue <b>ceramiche smaltate (azulejos)</b>: le piastrelle "
-        "multicolori che rivestono fontane, scale e facciate in tutta Siviglia nascono "
-        "qui. Il <b>Castello di San Jorge</b>, sotto l'attuale mercato, fu sede "
-        "dell'Inquisizione spagnola per tre secoli.",
+        "Le <b>ceramiche smaltate (azulejos)</b> che rivestono fontane, scale e facciate "
+        "in tutta Siviglia nascono qui a Triana.",
         styles,
-        title="Curiosità: Il Cuore Segreto di Siviglia",
+        title="🏘️ Curiosità: Il Cuore Segreto di Siviglia",
     )
 
     story += section(
-        "☀️ Pomeriggio  (13:00 →)",
+        "☀️ Pomeriggio  (13:00 →)  —  Plaza de España & Setas",
         [
-            "<b>13:00</b> – Pranzo in Triana o rientro nel centro",
-            "<b>15:00</b> – <b>Plaza de España</b> — la piazza più bella di Siviglia",
-            "Dettaglio: ogni provincia spagnola ha un proprio pannello in ceramica; cercate quello della vostra regione preferita",
-            "<b>16:30</b> – <b>Parco di Maria Luisa</b> — stroll tra fontane e padiglioni liberty",
-            "<b>18:00</b> – <b>Metropol Parasol</b> (Las Setas) — salire in cima per il tramonto su Siviglia",
-            "Biglietto: circa 5-15€ a seconda dell'esperienza scelta",
+            "<b>13:00</b> – Pranzo: <b>Mercado Lonja del Barranco</b> (ex mercato coperto sul fiume, "
+            "ora food market con tapas di qualità e posti a sedere). Comodo e festivo",
+            "<b>15:00</b> – <b>Plaza de España</b> — la piazza più scenografica di Siviglia",
+            "Affittare una barchetta sul canale semicircolare (esperienza romantica, ~6€/persona)",
+            "Cercare il pannello in ceramica della vostra provincia preferita",
+            "<b>16:30</b> – Passeggiata nel <b>Parco di Maria Luisa</b> — fontane, padiglioni, ombra",
         ],
         styles,
     )
@@ -1087,30 +1105,28 @@ def build_day2(styles):
     plaza_buf = fetch_image(plaza_url, fallback_color=BLUE_NIGHT, w_px=700, h_px=280,
                             label="Plaza de Espana, Siviglia")
     story.append(rl_image(plaza_buf, width=11 * cm, height=4.5 * cm))
-    story.append(Paragraph("Plaza de España — costruita per l'Esposizione Ibero-Americana del 1929", styles["CaptionStyle"]))
+    story.append(Paragraph("Plaza de España — set di Star Wars Episodio II (Naboo)", styles["CaptionStyle"]))
     story.append(Spacer(1, 0.3 * cm))
 
     story += curiosity_box(
-        "La <b>Plaza de España</b> è stata scelta come location per "
-        "<b>Star Wars Episodio II: L'Attacco dei Cloni</b> (2002): "
-        "nella saga rappresenta la città di Naboo. "
-        "Potete affittare barche sul canale semicircolare — l'esperienza più romantica di Siviglia.<br/><br/>"
+        "La <b>Plaza de España</b> fu costruita per l'Esposizione Ibero-Americana del 1929. "
+        "Nella saga di Star Wars rappresenta la città di Naboo (Episodio II, 2002).<br/><br/>"
         "Il <b>Metropol Parasol</b> (Las Setas) è la struttura in legno più grande del mondo. "
-        "Durante i lavori di costruzione (2005–2011) vennero scoperte rovine romane del I secolo d.C., "
-        "ora conservate nell'<b>Antiquarium</b> sotterraneo visitabile sotto la piazza. "
-        "L'architetto tedesco Jürgen Mayer H. progettò la struttura; il costo finale fu di 102 milioni di euro.",
+        "Durante i lavori vennero scoperte rovine romane del I secolo d.C., "
+        "ora nell'<b>Antiquarium</b> sotterraneo sotto la piazza.",
         styles,
         title="Curiosità: Plaza de España e Las Setas",
     )
 
     story += section(
-        "🌙 Sera  (20:30 →)  —  Serata rilassata",
+        "🌅 Tramonto & Sera  (18:00 →)",
         [
-            "<b>20:30</b> – Cena in una zona autentica",
-            "Suggerimento: zona <b>Alameda de Hércules</b> per atmosfera bohémien e qualità",
-            "Specialità da non perdere: <b>presa ibérica</b>, <b>gambas al ajillo</b>, <b>salmorejo</b>",
-            "<b>22:30</b> – Passeggiata lungo il <b>Paseo de Cristóbal Colón</b> (sul fiume)",
-            "Goditi la città illuminata — domani si va a Córdoba!",
+            "<b>18:00</b> – <b>Metropol Parasol</b> (Las Setas) — salire sulla passerella panoramica",
+            "Biglietto: ~5-15€ a seconda dell'esperienza scelta",
+            "Il tramonto da quassù è il momento più bello del viaggio",
+            "<b>20:30</b> – Cena nella zona di <b>Plaza de la Encarnación</b> (sotto le Setas)",
+            "Oppure in <b>Calle Feria</b>: zona locale, prezzi onesti, tapas autentiche",
+            "<b>22:00</b> – Passeggiata serale lungo il fiume — domani si va a Córdoba",
         ],
         styles,
     )
@@ -1118,8 +1134,7 @@ def build_day2(styles):
 
     story += tip_box(
         "Al tramonto il cielo si tinge di arancione sopra i tetti di Siviglia — "
-        "uno dei panorami più belli d'Andalusia. "
-        "La consumazione inclusa nel biglietto delle Setas vale assolutamente la pena.",
+        "uno dei panorami più belli d'Andalusia.",
         styles,
         title="🌅 Tramonto Imperdibile",
     )
@@ -1137,30 +1152,20 @@ def build_day3(styles):
     story += day_header(
         "2 Maggio",
         "Day Trip a Córdoba",
-        "La Mezquita-Cattedrale più straordinaria del mondo, la Judería, i patios.",
+        "Tre highlight, ritmo rilassato: Mezquita, Judería, Ponte Romano.",
         img,
         styles,
         fallback=OLIVE,
         img_label="Mezquita-Catedral de Cordoba",
     )
 
-    story += curiosity_box(
-        "Nel X secolo Córdoba era la <b>città più popolosa d'Europa occidentale</b>, "
-        "con oltre 500.000 abitanti. Il Califfato di Córdoba vantava 300 moschee, "
-        "70 biblioteche pubbliche, illuminazione stradale e acqua corrente — "
-        "quando il resto d'Europa viveva nel buio del Medioevo.<br/><br/>"
-        "La stazione di Córdoba è a soli <b>10 minuti a piedi</b> dalla Mezquita.",
-        styles,
-        title="🌍 Curiosità: La Capitale del Mondo Medievale",
-    )
-
     # Train info box
     train_data = [
-        ["Treno AVE  –  Siviglia a Cordoba (143 km)", ""],
-        ["Partenza consigliata", "7:50 – 8:20 da Siviglia Santa Justa"],
-        ["Durata", "circa 40 minuti"],
-        ["Costo", "circa 15–25 euro a/r (prenotare su renfe.com)"],
-        ["Rientro", "Tardo pomeriggio (17:00 – 18:30)"],
+        ["🚄 Treno AVE  –  Siviglia → Córdoba", ""],
+        ["Partenza", "~8:00 da Siviglia Santa Justa"],
+        ["Durata", "40 minuti"],
+        ["Costo", "~15–25€ a/r (prenotare su renfe.com)"],
+        ["Rientro", "~17:30 da Córdoba"],
     ]
     t = Table(train_data, colWidths=[7 * cm, 8.5 * cm])
     t.setStyle(
@@ -1187,16 +1192,24 @@ def build_day3(styles):
     story.append(t)
     story.append(Spacer(1, 0.3 * cm))
 
+    story += tip_box(
+        "Oggi solo <b>3 tappe</b>: Mezquita, Judería, Ponte Romano. "
+        "Niente corsa — Córdoba si gode camminando piano. "
+        "Dalla stazione alla Mezquita sono <b>15 minuti a piedi</b> lungo il centro storico.",
+        styles,
+        title="📋 Filosofia: 3 Highlight, Zero Stress",
+    )
+
     story += section(
-        "Mattina a Córdoba  (9:00 →)",
+        "🌅 Mattina  (9:00 →)  —  La Mezquita",
         [
-            "<b>9:00</b> – Arrivo in treno alla stazione di Córdoba",
-            "<b>10:00</b> – <b>Mezquita-Catedral de Córdoba</b> — entrare all'apertura (10:00), "
-            "prima delle scolaresche",
-            "La foresta di colonne in marmo e granito è una delle meraviglie architettoniche del mondo",
-            "Tempo: <b>1h30 – 2h</b>  ·  Biglietto: <b>15€</b> (generale), 12€ ridotto",
-            "<b>12:00</b> – <b>Judería</b> (quartiere ebraico) — Calle de las Flores, Sinagoga medievale",
-            "<b>12:30</b> – Patios andalusi (tra aprile-maggio molti aprono al pubblico per il Festival dei Patios)",
+            "<b>8:40</b> – Arrivo alla stazione di Córdoba",
+            "<b>8:50</b> – Passeggiata verso il centro storico (15 min, tutto in discesa)",
+            "<b>9:15</b> – Caffè e <i>salmorejo</i> in un bar della Judería (il piatto nasce qui!)",
+            "<b>10:00</b> – <b>Mezquita-Catedral de Córdoba</b> — ingresso all'apertura",
+            "La foresta di 856 colonne in marmo e granito con le arcate bianche e rosse",
+            "Non perdere: il <b>mihrab</b> (capolavoro dell'arte islamica) e la cattedrale rinascimentale interna",
+            "Tempo consigliato: <b>1h30 – 2h</b>  ·  Biglietto: <b>15€</b>  ·  Prenotare online",
         ],
         styles,
     )
@@ -1220,49 +1233,63 @@ def build_day3(styles):
     story.append(Spacer(1, 0.3 * cm))
 
     story += curiosity_box(
-        "La Mezquita fu originariamente una <b>chiesa visigota</b>, poi acquistata e "
-        "trasformata in moschea da Abd al-Rahman I nell'VIII secolo. "
+        "La Mezquita fu originariamente una <b>chiesa visigota</b>, poi trasformata "
+        "in moschea da Abd al-Rahman I nell'VIII secolo. "
         "Nel 1523 i cristiani costruirono una cattedrale <i>dentro</i> la moschea. "
-        "Carlo V, vedendo l'opera compiuta, disse: "
-        "<i>'Avete distrutto qualcosa di unico per costruire qualcosa di ordinario'</i>.<br/><br/>"
-        "Il <b>mihrab</b> (nicchia della preghiera) della Mezquita è considerato "
-        "uno dei capolavori assoluti dell'arte islamica mondiale.",
+        "Carlo V disse: <i>'Avete distrutto qualcosa di unico per costruire "
+        "qualcosa di ordinario'</i>.<br/><br/>"
+        "Nel X secolo Córdoba era la <b>città più popolosa d'Europa</b> "
+        "con oltre 500.000 abitanti, 300 moschee e 70 biblioteche pubbliche.",
         styles,
         title="🕌 Curiosità: La Mezquita-Catedral",
     )
 
     story += section(
-        "Pomeriggio  (13:30 →)",
+        "☀️ Mezzogiorno  (12:00 →)  —  Judería & Pranzo",
         [
-            "<b>13:30</b> – Pranzo in un patio tipico cordobese (non sulla strada turistica)",
-            "<b>15:00</b> – <b>Ponte Romano</b> sul Guadalquivir — fotogenico e imperdibile",
-            "<b>15:30</b> – <b>Alcázar de los Reyes Cristianos</b> (giardini bellissimi)",
-            "<b>17:00</b> – Rientro alla stazione per il treno verso Siviglia",
-            "<b>18:00</b> – Arrivo a Siviglia — è l'ultima sera!",
+            "<b>12:00</b> – <b>Judería</b> (quartiere ebraico medievale) — a 2 minuti dalla Mezquita",
+            "<b>Calle de las Flores</b>: il vicolo più fotografato di Córdoba (vista sulla torre)",
+            "<b>Sinagoga medievale</b>: una delle sole 3 rimaste in Spagna (ingresso gratuito per EU)",
+            "<b>13:00</b> – Pranzo in un patio cordobese",
+            "Consigliato: <b>Taberna Salinas</b> (Calle Tundidores 3, dal 1879 — patio magnifico)",
+            "Da provare: <i>salmorejo</i>, <i>flamenquín</i>, <i>rabo de toro</i>",
         ],
         styles,
     )
     story.append(Spacer(1, 0.3 * cm))
 
     story += section(
-        "🌙 Sera  (20:30 →)  —  L'ultima sera",
+        "🌉 Pomeriggio  (15:00 →)  —  Ponte Romano & Rientro",
         [
-            "<b>20:30</b> – Cena più curata: scegliere un ristorante con menù degustazione o specialità di stagione",
-            "Suggerimento: zona <b>Alameda de Hércules</b> per atmosfera bohémien e qualità",
-            "Specialità da non perdere: <b>presa ibérica</b>, <b>gambas al ajillo</b>, <b>salmorejo</b>",
-            "<b>22:30</b> – Passeggiata lungo il <b>Paseo de Cristóbal Colón</b> (sul fiume)",
-            "Goditi la città illuminata — domani si parte",
+            "<b>15:00</b> – Passeggiata verso il <b>Ponte Romano</b> sul Guadalquivir",
+            "Vista sulla Mezquita e sulla Torre de la Calahorra — il punto foto perfetto",
+            "<b>15:30</b> – Attraversare il ponte, caffè sulla riva sud, sedersi a guardare il fiume",
+            "<b>16:30</b> – Rientro lento verso la stazione (15 min a piedi, possibilità di shopping)",
+            "<b>17:30</b> – Treno AVE di ritorno a Siviglia",
+            "<b>18:10</b> – Arrivo a Siviglia Santa Justa — è l'ultima sera!",
+        ],
+        styles,
+    )
+    story.append(Spacer(1, 0.3 * cm))
+
+    story += section(
+        "🌙 Sera  (20:30 →)  —  L'ultima sera a Siviglia",
+        [
+            "<b>20:30</b> – Cena speciale: <b>La Azotea</b> (Calle Jesús del Gran Poder 31)",
+            "O alternativa: <b>El Rinconcillo</b> (il bar più antico di Siviglia, dal 1670)",
+            "Da provare: <i>presa ibérica</i>, <i>gambas al ajillo</i>, <i>tarta de queso</i>",
+            "<b>22:30</b> – Ultima passeggiata lungo il <b>Guadalquivir</b> illuminato",
         ],
         styles,
     )
     story.append(Spacer(1, 0.3 * cm))
 
     story += tip_box(
-        "Se il viaggio avviene durante il <b>Festival dei Patios di Córdoba</b> "
+        "Se il viaggio coincide con il <b>Festival dei Patios di Córdoba</b> "
         "(prima metà di maggio), molte case private aprono i propri cortili fioriti. "
-        "È uno spettacolo unico al mondo — Patrimonio Immateriale UNESCO.",
+        "È Patrimonio Immateriale UNESCO — verificare le date esatte.",
         styles,
-        title="Festival dei Patios",
+        title="🌺 Festival dei Patios",
     )
     return story
 
