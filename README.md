@@ -28,16 +28,26 @@ Il PDF generato (`tour_siviglia.pdf`) include:
 pip install reportlab Pillow requests qrcode
 ```
 
-### Esecuzione
+### Esecuzione (con foto reali)
+
+Per ottenere un PDF con **foto vere** (fotografie dei luoghi), scarica prima le immagini:
 
 ```bash
+# 1. Scarica le foto da Wikimedia (una volta sola, richiede internet)
+python3 download_images.py
+
+# 2. Genera il PDF con le foto reali
 python3 generate_tour_pdf.py
 ```
 
-Oppure specificando un percorso di output:
+Le foto vengono salvate nella cartella `images/` e riutilizzate nelle generazioni successive.
+
+### Esecuzione (senza internet)
+
+Se non hai connessione internet, il PDF viene generato comunque con immagini illustrative al posto delle foto:
 
 ```bash
-python3 generate_tour_pdf.py -o mio_tour.pdf
+python3 generate_tour_pdf.py
 ```
 
 ### Output
@@ -49,6 +59,8 @@ Il file `tour_siviglia.pdf` viene creato nella directory corrente.
 | File | Descrizione |
 |------|-------------|
 | `generate_tour_pdf.py` | Script Python per generare il PDF |
+| `download_images.py` | Script per scaricare le foto reali in `images/` |
+| `images/` | Cartella per le foto scaricate (non incluse nel repo) |
 | `tour_siviglia.pdf` | PDF generato (pronto da stampare o condividere) |
 
 ## 📋 Struttura del Tour

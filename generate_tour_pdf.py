@@ -51,10 +51,35 @@ PAGE_W, PAGE_H = A4  # 595.28 x 841.89
 # ─────────────────────────── HELPERS ──────────────────────────
 
 
+def _load_local_image(url: str, w_px: int, h_px: int) -> io.BytesIO | None:
+    """Return a JPEG BytesIO for a local cached copy of *url*, or None."""
+    filename = url.split("/")[-1].split("?")[0]
+    local_path = os.path.join(os.path.dirname(__file__), "images", filename)
+    if not os.path.isfile(local_path):
+        return None
+    try:
+        img = PILImage.open(local_path).convert("RGB")
+        img = img.resize((w_px, h_px), PILImage.LANCZOS)
+        buf = io.BytesIO()
+        img.save(buf, "JPEG", quality=85)
+        buf.seek(0)
+        return buf
+    except Exception:
+        return None
+
+
 def fetch_image(url: str, fallback_color=LIGHT_GOLD, w_px=400, h_px=250,
                 label: str = "") -> io.BytesIO:
-    """Download an image from URL; return a BytesIO with JPEG data.
-    On failure returns an informative placeholder with optional label."""
+    """Return a JPEG BytesIO for *url*.
+
+    Resolution order:
+    1. Local ``images/<filename>`` cache (populated by ``download_images.py``).
+    2. Remote URL download.
+    3. Stylised placeholder as last resort.
+    """
+    local = _load_local_image(url, w_px, h_px)
+    if local is not None:
+        return local
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
         with urllib.request.urlopen(req, timeout=15) as resp:
