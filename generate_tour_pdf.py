@@ -70,60 +70,157 @@ def fetch_image(url: str, fallback_color=LIGHT_GOLD, w_px=400, h_px=250,
 
 
 def _labeled_placeholder(label: str, color, w=400, h=250) -> io.BytesIO:
-    """Create a placeholder image with a diagonal stripe pattern and text label.
-    Always visually distinct from the page background."""
-    r = int(color.red * 255)
-    g = int(color.green * 255)
-    b = int(color.blue * 255)
-    # Shift toward a medium grey-toned version so it is never invisible on cream
-    bg = (
-        max(10, min(200, r - 30)),
-        max(10, min(200, g - 30)),
-        max(10, min(200, b - 30)),
-    )
-    stripe = (
-        max(0, bg[0] - 25),
-        max(0, bg[1] - 25),
-        max(0, bg[2] - 25),
-    )
-    img = PILImage.new("RGB", (w, h), bg)
+    """Create a beautiful travel-card scene illustration as placeholder image.
+
+    Renders a vertical sky-to-ground gradient, a stylised Andalusian skyline
+    silhouette, a Moorish-arch decorative frame and a prominent label banner.
+    """
+    from PIL import ImageFont
+
+    r0 = int(color.red * 255)
+    g0 = int(color.green * 255)
+    b0 = int(color.blue * 255)
+
+    # ── Palette derived from the supplied accent colour ──────────────────────
+    def clamp(v):
+        return max(0, min(255, v))
+
+    sky_top = (clamp(r0 + 60), clamp(g0 + 70), clamp(b0 + 90))
+    sky_bot = (clamp(r0 + 20), clamp(g0 + 30), clamp(b0 + 50))
+    ground  = (clamp(r0 - 20), clamp(g0 - 15), clamp(b0 - 10))
+    arch_c  = (clamp(r0 + 40), clamp(g0 + 35), clamp(b0 + 10))
+    dark_c  = (clamp(r0 - 60), clamp(g0 - 55), clamp(b0 - 50))
+    banner_bg = (clamp(r0 - 10), clamp(g0 - 8), clamp(b0 - 5))
+    text_col  = (255, 255, 255)
+
+    img = PILImage.new("RGB", (w, h), sky_top)
     draw = PILImageDraw.Draw(img)
-    # Diagonal stripes
-    for i in range(-h, w + h, 20):
-        draw.line([(i, 0), (i + h, h)], fill=stripe, width=8)
-    # Semi-transparent white overlay rectangle in the center for label
-    pad = 12
-    box = [pad, h // 2 - 22, w - pad, h // 2 + 22]
-    draw.rectangle(box, fill=(255, 255, 255))
-    # Label text
-    text = label if label else "[ immagine ]"
-    font = None
-    try:
-        from PIL import ImageFont
-        import sys
-        font_candidates = [
-            "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",  # Linux
-            "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",  # Linux alt
-            "C:/Windows/Fonts/Arial.ttf",  # Windows
-            "/Library/Fonts/Arial.ttf",  # macOS
-            "/System/Library/Fonts/Helvetica.ttc",  # macOS alt
-        ]
-        for path in font_candidates:
-            if os.path.exists(path):
-                font = ImageFont.truetype(path, 16)
+
+    # ── 1. Vertical sky gradient ─────────────────────────────────────────────
+    horizon = int(h * 0.55)
+    for y in range(horizon):
+        t = y / max(horizon - 1, 1)
+        row_color = (
+            clamp(int(sky_top[0] * (1 - t) + sky_bot[0] * t)),
+            clamp(int(sky_top[1] * (1 - t) + sky_bot[1] * t)),
+            clamp(int(sky_top[2] * (1 - t) + sky_bot[2] * t)),
+        )
+        draw.line([(0, y), (w, y)], fill=row_color)
+
+    # ── 2. Ground band ───────────────────────────────────────────────────────
+    draw.rectangle([(0, horizon), (w, h)], fill=ground)
+
+    # ── 3. Stylised Andalusian skyline silhouette ────────────────────────────
+    sil = dark_c
+    # Simple skyline: a sequence of towers + a central dome
+    step = w // 8
+    tower_w = max(step - 4, 6)
+    # Each entry: (x_offset_steps, top_y_fraction, width_bonus, height)
+    TOWER_SPECS = [
+        (1, 0.40, 0),
+        (2, 0.32, 4),
+        (3, 0.45, 0),
+        (5, 0.35, 6),
+        (6, 0.42, 0),
+        (7, 0.28, 2),
+    ]
+    towers = [
+        (step * x, h * yf, tower_w + wb, h - horizon)
+        for x, yf, wb in TOWER_SPECS
+    ]
+    for tx, ty, tower_width, th2 in towers:
+        draw.rectangle(
+            [(int(tx), int(ty)), (int(tx + tower_width), horizon)],
+            fill=sil,
+        )
+        # Small battlement on top
+        for bx in range(int(tx), int(tx + tower_width), max(3, tower_width // 4)):
+            draw.rectangle(
+                [(bx, int(ty) - 5), (bx + max(2, tower_width // 5), int(ty))],
+                fill=sil,
+            )
+
+    # Central dome (Giralda / Mezquita evocation)
+    cx = w // 2
+    dome_base_y = int(h * 0.22)
+    dome_r = max(step, 18)
+    draw.ellipse(
+        [(cx - dome_r, dome_base_y - dome_r), (cx + dome_r, dome_base_y + dome_r)],
+        fill=sil,
+    )
+    draw.rectangle(
+        [(cx - dome_r // 2, dome_base_y), (cx + dome_r // 2, horizon)],
+        fill=sil,
+    )
+
+    # ── 4. Moorish arch border (top + bottom ornamental lines) ───────────────
+    border = 8
+    # Top decorative band
+    draw.rectangle([(0, 0), (w, border)], fill=arch_c)
+    # Bottom decorative band
+    draw.rectangle([(0, h - border), (w, h)], fill=arch_c)
+    # Small repeated arch motif along the top band
+    arch_w = max(16, w // 12)
+    for ax in range(0, w, arch_w + 2):
+        draw.arc(
+            [(ax, 0), (ax + arch_w, border * 2)],
+            start=0, end=180, fill=dark_c, width=2,
+        )
+    # Side thin accent lines
+    draw.rectangle([(0, 0), (border // 2, h)], fill=arch_c)
+    draw.rectangle([(w - border // 2, 0), (w, h)], fill=arch_c)
+
+    # ── 5. Label banner ──────────────────────────────────────────────────────
+    text = label if label else "Foto non disponibile"
+    banner_h = max(30, h // 7)
+    banner_y = h - border - banner_h
+    # Slightly translucent banner drawn as solid rectangle
+    draw.rectangle([(border // 2, banner_y), (w - border // 2, h - border)],
+                   fill=banner_bg)
+    # Thin gold accent lines around banner
+    draw.line([(border, banner_y), (w - border, banner_y)], fill=arch_c, width=2)
+    draw.line([(border, h - border), (w - border, h - border)], fill=arch_c, width=2)
+
+    # Load best available font
+    font_lg = None
+    font_candidates = [
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+        "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+        "C:/Windows/Fonts/Arial.ttf",
+        "/Library/Fonts/Arial.ttf",
+        "/System/Library/Fonts/Helvetica.ttc",
+    ]
+    for path in font_candidates:
+        if os.path.exists(path):
+            try:
+                font_lg = ImageFont.truetype(path, max(12, banner_h - 10))
                 break
-        if font is None:
-            font = ImageFont.load_default()
-    except Exception:
-        font = None
-    if font:
-        bbox = draw.textbbox((0, 0), text, font=font)
-        tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
+            except Exception:
+                pass
+    if font_lg is None:
+        try:
+            font_lg = ImageFont.load_default()
+        except Exception:
+            font_lg = None
+
+    if font_lg:
+        bbox = draw.textbbox((0, 0), text, font=font_lg)
+        text_w, text_h = bbox[2] - bbox[0], bbox[3] - bbox[1]
     else:
-        tw, th = len(text) * 8, 12
-    tx = (w - tw) // 2
-    ty = h // 2 - th // 2
-    draw.text((tx, ty), text, fill=(bg[0] // 2, bg[1] // 2, bg[2] // 2), font=font)
+        text_w, text_h = len(text) * 8, 12
+
+    # Truncate label if too wide
+    TRUNCATE_STEP = 4
+    MIN_TEXT_LENGTH = 10
+    while font_lg and text_w > w - border * 4 and len(text) > MIN_TEXT_LENGTH:
+        text = text[: len(text) - TRUNCATE_STEP] + "…"
+        bbox = draw.textbbox((0, 0), text, font=font_lg)
+        text_w, text_h = bbox[2] - bbox[0], bbox[3] - bbox[1]
+
+    tx2 = (w - text_w) // 2
+    ty2 = banner_y + (banner_h - text_h) // 2
+    draw.text((tx2, ty2), text, fill=text_col, font=font_lg)
+
     buf = io.BytesIO()
     img.save(buf, "JPEG", quality=85)
     buf.seek(0)
