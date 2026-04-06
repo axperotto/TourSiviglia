@@ -486,8 +486,9 @@ def build_cover(styles):
 
     # Hero image (Seville / Giralda)
     hero_url = (
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5"
-        "/Sevilla_desde_la_Giralda_-_2.jpg/1280px-Sevilla_desde_la_Giralda_-_2.jpg"
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef"
+        "/Panorama_Seville_from_Giralda_Tower.jpg"
+        "/1280px-Panorama_Seville_from_Giralda_Tower.jpg"
     )
     hero_buf = fetch_image(hero_url, fallback_color=TERRACOTTA, w_px=1000, h_px=420,
                            label="Siviglia vista dalla Giralda")
@@ -616,8 +617,9 @@ def build_map_page(styles):
 
     # Photo of Andalusia / Seville skyline (network, with fallback)
     map_url = (
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5"
-        "/Sevilla_desde_la_Giralda_-_2.jpg/1280px-Sevilla_desde_la_Giralda_-_2.jpg"
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef"
+        "/Panorama_Seville_from_Giralda_Tower.jpg"
+        "/1280px-Panorama_Seville_from_Giralda_Tower.jpg"
     )
     map_buf = fetch_image(map_url, fallback_color=OLIVE, w_px=600, h_px=240,
                           label="Panorama di Siviglia dalla Giralda")
@@ -833,8 +835,8 @@ def build_day0(styles):
     """29 Aprile – Arrivo."""
     story = []
     img = (
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e"
-        "/Seville_night.jpg/1280px-Seville_night.jpg"
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8"
+        "/Seville_at_night_1.jpg/1280px-Seville_at_night_1.jpg"
     )
     story += day_header(
         "29 Aprile",
@@ -865,8 +867,9 @@ def build_day0(styles):
     # Small Seville at night image
     story.append(Spacer(1, 0.3 * cm))
     img2_url = (
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53"
-        "/Catedral_de_Sevilla_-_02.jpg/800px-Catedral_de_Sevilla_-_02.jpg"
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15"
+        "/Catedral_de_Sevilla._Exterior._01.JPG"
+        "/960px-Catedral_de_Sevilla._Exterior._01.JPG"
     )
     img2_buf = fetch_image(img2_url, fallback_color=DARK_BROWN, w_px=600, h_px=300,
                            label="Cattedrale di Siviglia di notte")
@@ -894,8 +897,9 @@ def build_day1(styles):
     """30 Aprile – Siviglia Iconica."""
     story = []
     img = (
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b"
-        "/Real_Alcazar_Seville_2008.jpg/1280px-Real_Alcazar_Seville_2008.jpg"
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b"
+        "/Alc%C3%A1zar_Seville_April_2019-11.jpg"
+        "/1280px-Alc%C3%A1zar_Seville_April_2019-11.jpg"
     )
     story += day_header(
         "30 Aprile",
@@ -922,9 +926,9 @@ def build_day1(styles):
 
     # Alcazar image
     alc_url = (
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66"
-        "/Real_Alcazar_of_Seville_-_Patio_de_las_Doncellas.jpg"
-        "/800px-Real_Alcazar_of_Seville_-_Patio_de_las_Doncellas.jpg"
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f"
+        "/Patio_de_las_doncellas_edited.jpg"
+        "/960px-Patio_de_las_doncellas_edited.jpg"
     )
     alc_buf = fetch_image(alc_url, fallback_color=LIGHT_GOLD, w_px=700, h_px=300,
                           label="Patio de las Doncellas - Real Alcazar")
@@ -999,9 +1003,9 @@ def build_day2(styles):
     """1 Maggio – Córdoba."""
     story = []
     img = (
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6"
-        "/Mezquita_de_C%C3%B3rdoba_-_panoramio_%281%29.jpg"
-        "/1280px-Mezquita_de_C%C3%B3rdoba_-_panoramio_%281%29.jpg"
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9"
+        "/Exterior_of_Mezquita%2C_Cordoba_%282369161889%29.jpg"
+        "/1280px-Exterior_of_Mezquita%2C_Cordoba_%282369161889%29.jpg"
     )
     story += day_header(
         "1 Maggio",
@@ -1073,9 +1077,9 @@ def build_day2(styles):
 
     # Mezquita image
     mezq_url = (
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e"
-        "/Mosque-Cathedral_of_Cordoba_interior.jpg"
-        "/800px-Mosque-Cathedral_of_Cordoba_interior.jpg"
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e"
+        "/Mezquita-Catedral_de_C%C3%B3rdoba_-_Blending_of_Christian_and_Moorish_architecture.jpg"
+        "/960px-Mezquita-Catedral_de_C%C3%B3rdoba_-_Blending_of_Christian_and_Moorish_architecture.jpg"
     )
     mezq_buf = fetch_image(mezq_url, fallback_color=CREAM, w_px=700, h_px=320,
                            label="Interno della Mezquita-Catedral")
@@ -1127,8 +1131,9 @@ def build_day3(styles):
     """2 Maggio – Siviglia Autentica."""
     story = []
     img = (
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97"
-        "/Triana%2C_Seville.jpg/1280px-Triana%2C_Seville.jpg"
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e"
+        "/Triana_embankment_Seville_Spain.jpg"
+        "/1280px-Triana_embankment_Seville_Spain.jpg"
     )
     story += day_header(
         "2 Maggio",
@@ -1153,8 +1158,9 @@ def build_day3(styles):
     story.append(Spacer(1, 0.2 * cm))
 
     triana_url = (
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85"
-        "/Triana_Sevilla.jpg/800px-Triana_Sevilla.jpg"
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c"
+        "/Puente_de_Triana%2C_Sevilla%2C_Espa%C3%B1a%2C_2015-12-06%2C_DD_67.JPG"
+        "/960px-Puente_de_Triana%2C_Sevilla%2C_Espa%C3%B1a%2C_2015-12-06%2C_DD_67.JPG"
     )
     triana_buf = fetch_image(triana_url, fallback_color=TERRACOTTA, w_px=700, h_px=280,
                              label="Quartiere Triana - Guadalquivir")
@@ -1190,9 +1196,9 @@ def build_day3(styles):
 
     # Plaza de España image
     plaza_url = (
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4"
-        "/Plaza_de_Espa%C3%B1a_%28Sevilla%29.jpg"
-        "/800px-Plaza_de_Espa%C3%B1a_%28Sevilla%29.jpg"
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6"
+        "/Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg"
+        "/960px-Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg"
     )
     plaza_buf = fetch_image(plaza_url, fallback_color=BLUE_NIGHT, w_px=700, h_px=280,
                             label="Plaza de Espana, Siviglia")
@@ -1468,8 +1474,9 @@ def build_back_cover(styles):
     story.append(Spacer(1, 2 * cm))
 
     river_url = (
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1"
-        "/Seville_golden_tower.jpg/800px-Seville_golden_tower.jpg"
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81"
+        "/Torre_del_Oro_Guadalquivir_Seville_Spain.jpg"
+        "/960px-Torre_del_Oro_Guadalquivir_Seville_Spain.jpg"
     )
     river_buf = fetch_image(river_url, fallback_color=TERRACOTTA, w_px=700, h_px=380,
                             label="Torre del Oro sul Guadalquivir")
