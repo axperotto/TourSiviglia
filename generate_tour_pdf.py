@@ -5,7 +5,6 @@ Generatore di PDF per il Tour di Siviglia e Córdoba
 """
 
 import io
-import math
 import os
 import urllib.request
 
@@ -460,8 +459,6 @@ def section(title: str, items: list, styles) -> list:
 
 def tip_box(text: str, styles, title="💡 Consiglio") -> list:
     """Golden-bordered tip box."""
-    data = [[Paragraph(f"<b>{title}</b>", styles["TipTitle"]), ""],
-            [Paragraph(text, styles["TipBox"]), ""]]
     t = Table([[Paragraph(f"<b>{title}</b><br/>{text}", styles["TipBox"])]], colWidths=[15.5 * cm])
     t.setStyle(
         TableStyle(
