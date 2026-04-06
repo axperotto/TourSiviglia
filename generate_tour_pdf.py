@@ -6,6 +6,8 @@ Generatore di PDF per il Tour di Siviglia e Córdoba
 
 import io
 import os
+import subprocess
+import sys
 import urllib.request
 
 import qrcode
@@ -50,11 +52,38 @@ PAGE_W, PAGE_H = A4  # 595.28 x 841.89
 
 # ─────────────────────────── HELPERS ──────────────────────────
 
+IMAGES_DIR = os.path.join(os.path.dirname(__file__), "images")
+
+
+def _ensure_images() -> None:
+    """Check that local images exist; if not, run download_images.py automatically."""
+    if os.path.isdir(IMAGES_DIR):
+        real_images = [
+            f for f in os.listdir(IMAGES_DIR)
+            if f != ".gitkeep" and not f.startswith(".")
+        ]
+    else:
+        real_images = []
+
+    if real_images:
+        return  # all good
+
+    print("⚠️  Nessuna immagine trovata in images/. Avvio download automatico…")
+    downloader = os.path.join(os.path.dirname(__file__), "download_images.py")
+    result = subprocess.run([sys.executable, downloader], check=False)
+    if result.returncode != 0:
+        print(
+            "❌ Il download delle immagini è fallito.\n"
+            "   Esegui manualmente: python3 download_images.py\n"
+            "   oppure verifica la connessione internet.\n"
+            "   Il PDF verrà generato con immagini segnaposto."
+        )
+
 
 def _load_local_image(url: str, w_px: int, h_px: int) -> io.BytesIO | None:
     """Return a JPEG BytesIO for a local cached copy of *url*, or None."""
     filename = url.split("/")[-1].split("?")[0]
-    local_path = os.path.join(os.path.dirname(__file__), "images", filename)
+    local_path = os.path.join(IMAGES_DIR, filename)
     if not os.path.isfile(local_path):
         return None
     try:
@@ -1504,8 +1533,47 @@ def build_back_cover(styles):
 # ───────────────────── DOCUMENT BUILDER ──────────────────────
 
 
+def _verify_pdf_images(output_path: str) -> None:
+    """Print a quick report of how many real vs placeholder images ended up in the PDF.
+
+    A real image is any JPEG stream larger than 30 KB (placeholders are tiny).
+    """
+    try:
+        with open(output_path, "rb") as f:
+            data = f.read()
+        # Count JPEG streams (SOI marker FF D8 FF) for the report
+        total = data.count(b"\xff\xd8\xff")
+        # A rough heuristic: real photos are > 30 KB; placeholders are < 10 KB.
+        # We scan for JPEG start/end pairs and measure each stream.
+        real = 0
+        pos = 0
+        while True:
+            start = data.find(b"\xff\xd8\xff", pos)
+            if start == -1:
+                break
+            end = data.find(b"\xff\xd9", start + 3)
+            if end == -1:
+                pos = start + 3
+                continue
+            stream_size = end - start + 2
+            if stream_size > 30_000:
+                real += 1
+            pos = end + 2
+        placeholders = total - real
+        if real > 0:
+            print(f"🖼  Immagini nel PDF: {real} reali, {placeholders} segnaposto (totale: {total})")
+        else:
+            print(
+                f"⚠️  Nessuna foto reale trovata nel PDF ({placeholders} segnaposto).\n"
+                "   Esegui prima: python3 download_images.py"
+            )
+    except OSError:
+        pass  # verification is best-effort
+
+
 def build_document(output_path: str = "tour_siviglia.pdf"):
     print(f"📄 Generazione PDF: {output_path}")
+    _ensure_images()
 
     styles = build_styles()
 
@@ -1606,6 +1674,7 @@ def build_document(output_path: str = "tour_siviglia.pdf"):
     doc.build(story)
     size_kb = os.path.getsize(output_path) // 1024
     print(f"✅ PDF generato con successo: {output_path}  ({size_kb} KB)")
+    _verify_pdf_images(output_path)
     return output_path
 
 
