@@ -1,0 +1,11 @@
+# Foto scaricate localmente (usate per generare il PDF con immagini reali)
+# Esegui download_images.py per popolare questa cartella
+images/*.jpg
+images/*.jpeg
+images/*.png
+images/*.webp
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
