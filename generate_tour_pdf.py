@@ -22,6 +22,7 @@ from reportlab.graphics.shapes import (
 )
 from reportlab.platypus import (
     BaseDocTemplate,
+    CondPageBreak,
     Flowable,
     Frame,
     HRFlowable,
@@ -571,8 +572,8 @@ def build_toc(styles):
         ("📌", "Mappa Generale", ""),
         ("📍", "29 Aprile  –  Arrivo a Siviglia", "Sera"),
         ("🕌", "30 Aprile  –  Siviglia Iconica", "Mattina · Pomeriggio · Sera"),
-        ("🕌", "1 Maggio  –  Day Trip a Córdoba", "Mattina · Pomeriggio"),
-        ("🌊", "2 Maggio  –  Siviglia Autentica", "Mattina · Pomeriggio · Sera"),
+        ("🕌", "1 Maggio  –  Siviglia Autentica", "Mattina · Pomeriggio · Sera"),
+        ("🕌", "2 Maggio  –  Day Trip a Córdoba", "Mattina · Pomeriggio · Sera"),
         ("✈️", "3 Maggio  –  Partenza", "Mattina"),
         ("💡", "Consigli Pratici", "Biglietti · Trasporti · Ristoranti"),
         ("🗺", "Mappe e QR Code", "Links Utili"),
@@ -911,14 +912,14 @@ def build_day1(styles):
     )
 
     story += section(
-        "🌅 Mattina  (8:30 →)",
+        "🌅 Mattina  (9:30 →)",
         [
-            "<b>8:30</b> – Ingresso al <b>Real Alcázar di Siviglia</b> (prenotato in anticipo!)",
+            "<b>9:30</b> – Ingresso al <b>Real Alcázar di Siviglia</b> (prenotato in anticipo!)",
             "Visita i Saloni Reali, il Giardino del Labirinto e il Patio delle Bambole",
             "Tempo consigliato: <b>1h30 – 2h</b>",
-            "<b>10:30</b> – <b>Cattedrale di Siviglia</b> (la più grande gotica del mondo) + Torre della <b>Giralda</b>",
-            "Salita alla Giralda: rampa (non scale) — accessibile e panorama imperdibile",
-            "Tempo consigliato: <b>1h30</b>",
+            "<b>11:15</b> – <b>Cattedrale di Siviglia</b> (la più grande gotica del mondo) + Torre della <b>Giralda</b>",
+            "La Cattedrale apre alle 11:00 (Lun-Sab). Salita alla Giralda: rampa (non scale) — panorama imperdibile",
+            "Tempo consigliato: <b>1h15</b>",
         ],
         styles,
     )
@@ -937,8 +938,10 @@ def build_day1(styles):
     story.append(Spacer(1, 0.3 * cm))
 
     story += tip_box(
-        "Prenotare l'Alcázar <b>almeno 2 settimane prima</b> su alcazarsevilla.es. "
-        "L'ingresso mattutino (8:30) è il meno affollato. "
+        "Prenotare l'Alcázar <b>almeno 2 settimane prima</b> su "
+        '<a href="https://alcazarsevilla.org/prepara-la-visita/" color="blue">alcazarsevilla.org</a>. '
+        "L'Alcázar apre alle <b>9:30</b> in orario estivo (aprile-settembre). "
+        "L'ingresso mattutino appena apre è il meno affollato (biglietto: <b>15,50€</b>). "
         "Portare scarpe comode: i pavimenti di maioliche sono sdrucciolevoli.",
         styles,
         title="⚠️  Prenotazione Obbligatoria",
@@ -959,8 +962,8 @@ def build_day1(styles):
         [
             "<b>13:00</b> – Pranzo nel <b>Barrio Santa Cruz</b> (evitare i ristoranti sulla piazza, cercare i vicoli)",
             "<b>15:00</b> – Passeggiata libera nel quartiere ebraico: vicoli bianchi, gerani, fontane",
-            "<b>16:30</b> – <b>Casa de Pilatos</b> — palazzo rinascimentale-mudéjar molto sottovalutato",
-            "Ingresso ≈ 12€ · Tempo: 1h",
+            "<b>16:00</b> – <b>Casa de Pilatos</b> — palazzo rinascimentale-mudéjar molto sottovalutato",
+            "Ingresso: <b>12€</b> (piano principale) + 6€ piano alto opzionale · Chiude alle 18:00 · Tempo: 1h30",
         ],
         styles,
     )
@@ -991,7 +994,7 @@ def build_day1(styles):
 
     story += tip_box(
         "Per il flamenco: evitare gli spettacoli 'per turisti' nelle piazze. "
-        "Casa de la Memoria (Calle Ximénez de Enciso) offre uno spettacolo autentico "
+        "Casa de la Memoria (<b>Calle Cuna 6</b>) offre uno spettacolo autentico "
         "in un palazzo storico, max 100 posti. Prenotare online.",
         styles,
         title="🎭 Flamenco Autentico",
@@ -1000,7 +1003,131 @@ def build_day1(styles):
 
 
 def build_day2(styles):
-    """1 Maggio – Córdoba."""
+    """1 Maggio – Siviglia Autentica."""
+    story = []
+    img = (
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e"
+        "/Triana_embankment_Seville_Spain.jpg"
+        "/1280px-Triana_embankment_Seville_Spain.jpg"
+    )
+    story += day_header(
+        "1 Maggio",
+        "Siviglia Autentica",
+        "Giorno festivo! Il lato vero della città: Triana, il Parco, Plaza de España e il tramonto.",
+        img,
+        styles,
+        fallback=OLIVE,
+        img_label="Quartiere Triana, Siviglia",
+    )
+
+    story += tip_box(
+        "Oggi è il <b>1° Maggio</b> (Día del Trabajador), festivo in Spagna. "
+        "Molti monumenti municipali potrebbero essere chiusi, ma le attrazioni "
+        "all'aperto (Triana, Plaza de España, Parco, Setas) restano accessibili. "
+        "Giornata perfetta per vivere la città senza fretta.",
+        styles,
+        title="⚠️  1° Maggio – Giorno Festivo",
+    )
+
+    story += section(
+        "🌅 Mattina  (9:00 →)",
+        [
+            "<b>9:00</b> – <b>Quartiere Triana</b> — attraversare il Ponte di Isabella II a piedi",
+            "Triana è la vera anima di Siviglia: ceramisti, baretti locali, flamenco nelle strade",
+            "<b>10:00</b> – <b>Mercato di Triana</b> (Mercado de Abastos) — prodotti locali, tapas fresche",
+            "<b>11:30</b> – Passeggiata lungo il Guadalquivir sulla riva di Triana",
+        ],
+        styles,
+    )
+    story.append(Spacer(1, 0.2 * cm))
+
+    triana_url = (
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c"
+        "/Puente_de_Triana%2C_Sevilla%2C_Espa%C3%B1a%2C_2015-12-06%2C_DD_67.JPG"
+        "/960px-Puente_de_Triana%2C_Sevilla%2C_Espa%C3%B1a%2C_2015-12-06%2C_DD_67.JPG"
+    )
+    triana_buf = fetch_image(triana_url, fallback_color=TERRACOTTA, w_px=700, h_px=280,
+                             label="Quartiere Triana - Guadalquivir")
+    story.append(rl_image(triana_buf, width=11 * cm, height=4.5 * cm))
+    story.append(Paragraph("Quartiere Triana — ponti sul Guadalquivir", styles["CaptionStyle"]))
+    story.append(Spacer(1, 0.3 * cm))
+
+    story += curiosity_box(
+        "Il nome <b>Triana</b> potrebbe derivare dall'imperatore romano <b>Traiano</b>, "
+        "nato nella regione nel 53 d.C. Il quartiere fu a lungo la dimora di "
+        "gitani, toreri e marinai, ed è considerato la culla del <b>flamenco sivigliano</b>.<br/><br/>"
+        "Triana è famosa per le sue <b>ceramiche smaltate (azulejos)</b>: le piastrelle "
+        "multicolori che rivestono fontane, scale e facciate in tutta Siviglia nascono "
+        "qui. Il <b>Castello di San Jorge</b>, sotto l'attuale mercato, fu sede "
+        "dell'Inquisizione spagnola per tre secoli.",
+        styles,
+        title="Curiosità: Il Cuore Segreto di Siviglia",
+    )
+
+    story += section(
+        "☀️ Pomeriggio  (13:00 →)",
+        [
+            "<b>13:00</b> – Pranzo in Triana o rientro nel centro",
+            "<b>15:00</b> – <b>Plaza de España</b> — la piazza più bella di Siviglia",
+            "Dettaglio: ogni provincia spagnola ha un proprio pannello in ceramica; cercate quello della vostra regione preferita",
+            "<b>16:30</b> – <b>Parco di Maria Luisa</b> — stroll tra fontane e padiglioni liberty",
+            "<b>18:00</b> – <b>Metropol Parasol</b> (Las Setas) — salire in cima per il tramonto su Siviglia",
+            "Biglietto: circa 5-15€ a seconda dell'esperienza scelta",
+        ],
+        styles,
+    )
+    story.append(Spacer(1, 0.2 * cm))
+
+    # Plaza de España image
+    plaza_url = (
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6"
+        "/Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg"
+        "/960px-Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg"
+    )
+    plaza_buf = fetch_image(plaza_url, fallback_color=BLUE_NIGHT, w_px=700, h_px=280,
+                            label="Plaza de Espana, Siviglia")
+    story.append(rl_image(plaza_buf, width=11 * cm, height=4.5 * cm))
+    story.append(Paragraph("Plaza de España — costruita per l'Esposizione Ibero-Americana del 1929", styles["CaptionStyle"]))
+    story.append(Spacer(1, 0.3 * cm))
+
+    story += curiosity_box(
+        "La <b>Plaza de España</b> è stata scelta come location per "
+        "<b>Star Wars Episodio II: L'Attacco dei Cloni</b> (2002): "
+        "nella saga rappresenta la città di Naboo. "
+        "Potete affittare barche sul canale semicircolare — l'esperienza più romantica di Siviglia.<br/><br/>"
+        "Il <b>Metropol Parasol</b> (Las Setas) è la struttura in legno più grande del mondo. "
+        "Durante i lavori di costruzione (2005–2011) vennero scoperte rovine romane del I secolo d.C., "
+        "ora conservate nell'<b>Antiquarium</b> sotterraneo visitabile sotto la piazza. "
+        "L'architetto tedesco Jürgen Mayer H. progettò la struttura; il costo finale fu di 102 milioni di euro.",
+        styles,
+        title="Curiosità: Plaza de España e Las Setas",
+    )
+
+    story += section(
+        "🌙 Sera  (20:30 →)  —  Serata rilassata",
+        [
+            "<b>20:30</b> – Cena in una zona autentica",
+            "Suggerimento: zona <b>Alameda de Hércules</b> per atmosfera bohémien e qualità",
+            "Specialità da non perdere: <b>presa ibérica</b>, <b>gambas al ajillo</b>, <b>salmorejo</b>",
+            "<b>22:30</b> – Passeggiata lungo il <b>Paseo de Cristóbal Colón</b> (sul fiume)",
+            "Goditi la città illuminata — domani si va a Córdoba!",
+        ],
+        styles,
+    )
+    story.append(Spacer(1, 0.3 * cm))
+
+    story += tip_box(
+        "Al tramonto il cielo si tinge di arancione sopra i tetti di Siviglia — "
+        "uno dei panorami più belli d'Andalusia. "
+        "La consumazione inclusa nel biglietto delle Setas vale assolutamente la pena.",
+        styles,
+        title="🌅 Tramonto Imperdibile",
+    )
+    return story
+
+
+def build_day3(styles):
+    """2 Maggio – Day Trip a Córdoba."""
     story = []
     img = (
         "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9"
@@ -1008,7 +1135,7 @@ def build_day2(styles):
         "/1280px-Exterior_of_Mezquita%2C_Cordoba_%282369161889%29.jpg"
     )
     story += day_header(
-        "1 Maggio",
+        "2 Maggio",
         "Day Trip a Córdoba",
         "La Mezquita-Cattedrale più straordinaria del mondo, la Judería, i patios.",
         img,
@@ -1064,11 +1191,11 @@ def build_day2(styles):
         "Mattina a Córdoba  (9:00 →)",
         [
             "<b>9:00</b> – Arrivo in treno alla stazione di Córdoba",
-            "<b>9:30</b> – <b>Mezquita-Catedral de Córdoba</b> — entrare appena apre (9:30), "
+            "<b>10:00</b> – <b>Mezquita-Catedral de Córdoba</b> — entrare all'apertura (10:00), "
             "prima delle scolaresche",
             "La foresta di colonne in marmo e granito è una delle meraviglie architettoniche del mondo",
-            "Tempo: <b>1h30 – 2h</b>  ·  Biglietto: circa 13 euro",
-            "<b>11:30</b> – <b>Judería</b> (quartiere ebraico) — Calle de las Flores, Sinagoga medievale",
+            "Tempo: <b>1h30 – 2h</b>  ·  Biglietto: <b>15€</b> (generale), 12€ ridotto",
+            "<b>12:00</b> – <b>Judería</b> (quartiere ebraico) — Calle de las Flores, Sinagoga medievale",
             "<b>12:30</b> – Patios andalusi (tra aprile-maggio molti aprono al pubblico per il Festival dei Patios)",
         ],
         styles,
@@ -1109,115 +1236,13 @@ def build_day2(styles):
         [
             "<b>13:30</b> – Pranzo in un patio tipico cordobese (non sulla strada turistica)",
             "<b>15:00</b> – <b>Ponte Romano</b> sul Guadalquivir — fotogenico e imperdibile",
-            "<b>15:30</b> – <b>Alcázar de los Reyes Cristianos</b> (opzionale, giardini bellissimi)",
+            "<b>15:30</b> – <b>Alcázar de los Reyes Cristianos</b> (giardini bellissimi)",
             "<b>17:00</b> – Rientro alla stazione per il treno verso Siviglia",
-            "<b>18:00</b> – Arrivo a Siviglia, cena e riposo",
+            "<b>18:00</b> – Arrivo a Siviglia — è l'ultima sera!",
         ],
         styles,
     )
     story.append(Spacer(1, 0.3 * cm))
-
-    story += tip_box(
-        "Se il viaggio avviene durante il <b>Festival dei Patios di Córdoba</b> "
-        "(prima metà di maggio), molte case private aprono i propri cortili fioriti. "
-        "È uno spettacolo unico al mondo — Patrimonio Immateriale UNESCO.",
-        styles,
-        title="Festival dei Patios",
-    )
-    return story
-
-
-def build_day3(styles):
-    """2 Maggio – Siviglia Autentica."""
-    story = []
-    img = (
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e"
-        "/Triana_embankment_Seville_Spain.jpg"
-        "/1280px-Triana_embankment_Seville_Spain.jpg"
-    )
-    story += day_header(
-        "2 Maggio",
-        "Siviglia Autentica",
-        "Il lato vero della città: Triana, il Parco, Plaza de España e il tramonto.",
-        img,
-        styles,
-        fallback=OLIVE,
-        img_label="Quartiere Triana, Siviglia",
-    )
-
-    story += section(
-        "🌅 Mattina  (9:00 →)",
-        [
-            "<b>9:00</b> – <b>Quartiere Triana</b> — attraversare il Ponte di Isabella II a piedi",
-            "Triana è la vera anima di Siviglia: ceramisti, baretti locali, flamenco nelle strade",
-            "<b>10:00</b> – <b>Mercato di Triana</b> (Mercado de Abastos) — prodotti locali, tapas fresche",
-            "<b>11:30</b> – Passeggiata lungo il Guadalquivir sulla riva di Triana",
-        ],
-        styles,
-    )
-    story.append(Spacer(1, 0.2 * cm))
-
-    triana_url = (
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c"
-        "/Puente_de_Triana%2C_Sevilla%2C_Espa%C3%B1a%2C_2015-12-06%2C_DD_67.JPG"
-        "/960px-Puente_de_Triana%2C_Sevilla%2C_Espa%C3%B1a%2C_2015-12-06%2C_DD_67.JPG"
-    )
-    triana_buf = fetch_image(triana_url, fallback_color=TERRACOTTA, w_px=700, h_px=280,
-                             label="Quartiere Triana - Guadalquivir")
-    story.append(rl_image(triana_buf, width=11 * cm, height=4.5 * cm))
-    story.append(Paragraph("Quartiere Triana — ponti sul Guadalquivir", styles["CaptionStyle"]))
-    story.append(Spacer(1, 0.3 * cm))
-
-    story += curiosity_box(
-        "Il nome <b>Triana</b> potrebbe derivare dall'imperatore romano <b>Traiano</b>, "
-        "nato nella regione nel 53 d.C. Il quartiere fu a lungo la dimora di "
-        "gitani, toreri e marinai, ed è considerato la culla del <b>flamenco sivigliano</b>.<br/><br/>"
-        "Triana è famosa per le sue <b>ceramiche smaltate (azulejos)</b>: le piastrelle "
-        "multicolori che rivestono fontane, scale e facciate in tutta Siviglia nascono "
-        "qui. Il <b>Castello di San Jorge</b>, sotto l'attuale mercato, fu sede "
-        "dell'Inquisizione spagnola per tre secoli.",
-        styles,
-        title="Curiosità: Il Cuore Segreto di Siviglia",
-    )
-
-    story += section(
-        "☀️ Pomeriggio  (13:00 →)",
-        [
-            "<b>13:00</b> – Pranzo in Triana o rientro nel centro",
-            "<b>15:00</b> – <b>Plaza de España</b> — la piazza più bella di Siviglia",
-            "Dettaglio: ogni provincia spagnola ha un proprio pannello in ceramica; cercate quello della vostra regione preferita",
-            "<b>16:30</b> – <b>Parco di Maria Luisa</b> — stroll tra fontane e padiglioni liberty",
-            "<b>18:00</b> – <b>Metropol Parasol</b> (Las Setas) — salire in cima per il tramonto su Siviglia",
-            "Biglietto: circa 5 euro  ·  Include una consumazione al bar panoramico",
-        ],
-        styles,
-    )
-    story.append(Spacer(1, 0.2 * cm))
-
-    # Plaza de España image
-    plaza_url = (
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6"
-        "/Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg"
-        "/960px-Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg"
-    )
-    plaza_buf = fetch_image(plaza_url, fallback_color=BLUE_NIGHT, w_px=700, h_px=280,
-                            label="Plaza de Espana, Siviglia")
-    story.append(rl_image(plaza_buf, width=11 * cm, height=4.5 * cm))
-    story.append(Paragraph("Plaza de España — costruita per l'Esposizione Ibero-Americana del 1929", styles["CaptionStyle"]))
-    story.append(Spacer(1, 0.3 * cm))
-
-    story += curiosity_box(
-        "La <b>Plaza de España</b> è stata scelta come location per "
-        "<b>Star Wars Episodio II: L'Attacco dei Cloni</b> (2002): "
-        "nella saga rappresenta la città di Naboo. "
-        "Potete affittare barche sul canale semicircolare — l'esperienza più romantica di Siviglia.<br/><br/>"
-        "Il <b>Metropol Parasol</b> (Las Setas) è la struttura in legno più grande del mondo. "
-        "Durante i lavori di costruzione (2005–2011) vennero scoperte rovine romane del I secolo d.C., "
-        "ora conservate nell'<b>Antiquarium</b> sotterraneo visitabile sotto la piazza. "
-        "L'architetto tedesco Jürgen Mayer H. progettò la struttura; il costo finale fu di 102 milioni di euro.",
-        styles,
-        title="Curiosità: Plaza de España e Las Setas",
-    )
 
     story += section(
         "🌙 Sera  (20:30 →)  —  L'ultima sera",
@@ -1233,11 +1258,11 @@ def build_day3(styles):
     story.append(Spacer(1, 0.3 * cm))
 
     story += tip_box(
-        "Al tramonto il cielo si tinge di arancione sopra i tetti di Siviglia — "
-        "uno dei panorami più belli d'Andalusia. "
-        "La consumazione inclusa nel biglietto delle Setas vale assolutamente la pena.",
+        "Se il viaggio avviene durante il <b>Festival dei Patios di Córdoba</b> "
+        "(prima metà di maggio), molte case private aprono i propri cortili fioriti. "
+        "È uno spettacolo unico al mondo — Patrimonio Immateriale UNESCO.",
         styles,
-        title="🌅 Tramonto Imperdibile",
+        title="Festival dei Patios",
     )
     return story
 
@@ -1315,12 +1340,12 @@ def build_tips(styles):
         (
             "🎟  Biglietti",
             [
-                "Real Alcázar: prenotare su <b>alcazarsevilla.es</b> — esaurito settimane prima",
-                "Cattedrale + Giralda: prenotare su <b>catedraldesevilla.es</b>",
-                "Mezquita Córdoba: biglietti su <b>mezquita-catedraldecordoba.es</b>",
-                "Casa de Pilatos: nessuna prenotazione necessaria (circa 12 euro)",
-                "Treno AVE: prenotare su <b>renfe.com</b> o app Renfe",
-                "Metropol Parasol (Las Setas): circa 5 euro — include consumazione al bar",
+                'Real Alcázar: prenotare su <a href="https://alcazarsevilla.org/prepara-la-visita/" color="blue"><b>alcazarsevilla.org</b></a> — apre alle 9:30 (apr-set), <b>15,50€</b>',
+                'Cattedrale + Giralda: prenotare su <a href="https://www.catedraldesevilla.es/visita-cultural/horarios-y-tarifas/" color="blue"><b>catedraldesevilla.es</b></a> — <b>13€</b> online (Lun-Sab 11:00-18:00)',
+                'Mezquita Córdoba: biglietti su <a href="https://mezquita-catedraldecordoba.es/organiza-la-visita/entradas-y-horarios/" color="blue"><b>mezquita-catedraldecordoba.es</b></a> — <b>15€</b> generale',
+                "Casa de Pilatos: nessuna prenotazione necessaria (<b>12€</b> piano principale, chiude 18:00)",
+                'Treno AVE: prenotare su <a href="https://www.renfe.com/" color="blue"><b>renfe.com</b></a> o app Renfe',
+                'Metropol Parasol (Las Setas): biglietti su <a href="https://setasdesevilla.com/" color="blue"><b>setasdesevilla.com</b></a> — circa 5€, include consumazione',
             ],
         ),
         (
@@ -1419,11 +1444,11 @@ def build_qr_page(styles):
     story.append(Spacer(1, 0.4 * cm))
 
     qr_links = [
-        ("Real Alcázar", "https://www.alcazarsevilla.es/entradas/", "alcazarsevilla.es"),
-        ("Cattedrale di Siviglia", "https://www.catedraldesevilla.es/", "catedraldesevilla.es"),
-        ("Mezquita Córdoba", "https://mezquita-catedraldecordoba.es/", "mezquita-catedraldecordoba.es"),
+        ("Real Alcázar", "https://alcazarsevilla.org/prepara-la-visita/", "alcazarsevilla.org"),
+        ("Cattedrale di Siviglia", "https://www.catedraldesevilla.es/visita-cultural/horarios-y-tarifas/", "catedraldesevilla.es"),
+        ("Mezquita Córdoba", "https://mezquita-catedraldecordoba.es/organiza-la-visita/entradas-y-horarios/", "mezquita-catedraldecordoba.es"),
         ("Treno AVE (Renfe)", "https://www.renfe.com/", "renfe.com"),
-        ("Casa de la Memoria (Flamenco)", "https://www.casadelamemoria.es/", "casadelamemoria.es"),
+        ("Casa de la Memoria (Flamenco)", "https://casadelamemoria.es/", "casadelamemoria.es"),
         ("Metropol Parasol", "https://setasdesevilla.com/", "setasdesevilla.com"),
     ]
 
@@ -1633,6 +1658,11 @@ def build_document(output_path: str = "tour_siviglia.pdf"):
     # Build full story
     story = []
 
+    # Conditional page break threshold: breaks only if we're not already
+    # near the top of a fresh page, avoiding blank pages.
+    _FRAME_H = PAGE_H - 44 * mm  # effective frame height (top+bottom padding)
+    _NEW_PAGE = CondPageBreak(_FRAME_H - 10)  # skip break if at page top
+
     # Cover (no header/footer)
     story += build_cover(styles)
     story.append(NextPageTemplate("Body"))
@@ -1640,35 +1670,35 @@ def build_document(output_path: str = "tour_siviglia.pdf"):
 
     # TOC
     story += build_toc(styles)
-    story.append(PageBreak())
+    story.append(_NEW_PAGE)
 
     # Map overview
     story += build_map_page(styles)
-    story.append(PageBreak())
+    story.append(_NEW_PAGE)
 
     # Day 0 – Aprile 29
     story += build_day0(styles)
-    story.append(PageBreak())
+    story.append(_NEW_PAGE)
 
     # Day 1 – Aprile 30
     story += build_day1(styles)
-    story.append(PageBreak())
+    story.append(_NEW_PAGE)
 
-    # Day 2 – Maggio 1
+    # Day 2 – Maggio 1 – Siviglia Autentica
     story += build_day2(styles)
-    story.append(PageBreak())
+    story.append(_NEW_PAGE)
 
-    # Day 3 – Maggio 2
+    # Day 3 – Maggio 2 – Córdoba
     story += build_day3(styles)
-    story.append(PageBreak())
+    story.append(_NEW_PAGE)
 
     # Day 4 – Maggio 3
     story += build_day4(styles)
-    story.append(PageBreak())
+    story.append(_NEW_PAGE)
 
     # Tips
     story += build_tips(styles)
-    story.append(PageBreak())
+    story.append(_NEW_PAGE)
 
     # QR Codes
     story += build_qr_page(styles)

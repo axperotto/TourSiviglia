@@ -13,8 +13,8 @@ Il PDF generato (`tour_siviglia.pdf`) include:
 - **Itinerario giorno per giorno:**
   - 📍 29 Aprile – Arrivo a Siviglia (sera)
   - 🕌 30 Aprile – Siviglia Iconica (Real Alcázar, Cattedrale, Santa Cruz, Casa de Pilatos)
-  - 🕌 1 Maggio – Day Trip a Córdoba (Mezquita, Judería, Ponte Romano)
-  - 🌊 2 Maggio – Siviglia Autentica (Triana, Plaza de España, Metropol Parasol)
+  - 🕌 1 Maggio – Siviglia Autentica (Triana, Plaza de España, Metropol Parasol)
+  - 🌊 2 Maggio – Day Trip a Córdoba (Mezquita, Judería, Ponte Romano)
   - ✈️ 3 Maggio – Partenza
 - **Consigli pratici** (biglietti, trasporti, ristoranti, meteo)
 - **QR Code** per prenotazioni dirette
@@ -82,8 +82,8 @@ Il file `tour_siviglia.pdf` viene creato nella directory corrente.
 ```
 29 Apr (sera)   → Arrivo + passeggiata centro
 30 Apr          → Real Alcázar + Cattedrale + Santa Cruz + Casa de Pilatos
- 1 Mag          → Day trip Córdoba (AVE 40 min) – Mezquita + Judería
- 2 Mag          → Triana + Plaza de España + Metropol Parasol (tramonto)
+ 1 Mag          → Siviglia Autentica: Triana + Plaza de España + Metropol Parasol
+ 2 Mag          → Day trip Córdoba (AVE 40 min) – Mezquita + Judería
  3 Mag (mattina)→ Partenza dall'aeroporto SVQ
 ```
 
